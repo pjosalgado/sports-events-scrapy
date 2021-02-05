@@ -1,0 +1,34 @@
+image: python:3.8
+
+stages:
+  - build
+  - deploy
+
+before_script:
+  - pip install -r requirements.txt
+
+gitversion:
+  stage: build
+  script:
+    - scripts/gitversion-dependencies.sh
+    - ./gitversion path $(pwd) > gitversion-ext.json
+    - cat gitversion-ext.json
+    - FullSemVer=$(./yq r gitversion-ext.json FullSemVer)
+    - sed "s/^\(\s*version\s*:\s*\).*/\1 $FullSemVer/" scrapinghub.yml > scrapinghub-new.yml
+    - mv scrapinghub-new.yml scrapinghub.yml
+  artifacts:
+    paths: 
+      - scrapinghub.yml
+  only:
+    - master
+
+scrapinghub:
+  stage: deploy
+  script:
+    - scripts/shub-dependencies.sh
+    - scripts/deploy.sh
+  only:
+    - master
+  environment:
+    name: scrapinghub
+    url: https://app.scrapinghub.com/p/467634

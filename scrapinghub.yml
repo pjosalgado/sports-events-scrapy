@@ -1,0 +1,10 @@
+project: 467634
+version: 1.0
+
+requirements:
+  file: requirements.txt
+
+stack: scrapy:1.8-py3
+
+apikeys:
+  default: $SHUB_API_KEY
