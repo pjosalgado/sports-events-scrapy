@@ -48,7 +48,7 @@ class SportsBaySpider(scrapy.Spider):
         'https://sportsbay.org/competition/us-open', 
     ]
     
-    TIMEZONE = pytz.timezone('America/Sao_Paulo')
+    TIMEZONE = pytz.timezone('Etc/GMT+3')
     
     
     @classmethod
