@@ -1,8 +1,8 @@
 image: python:3.9-slim
 
 stages:
-  - test
   - build
+  - test
   - deploy
 
 include:
