@@ -1,23 +1,24 @@
-image: python:3.8
+image: python:3.9-slim
 
 stages:
+  - test
   - build
   - deploy
 
-before_script:
-  - pip install -r requirements.txt
+include:
+  - template: Security/SAST.gitlab-ci.yml
 
 gitversion:
   stage: build
   script:
     - scripts/gitversion-dependencies.sh
-    - ./gitversion path $(pwd) > gitversion-ext.json
+    - "./gitversion path $(pwd) > gitversion-ext.json"
     - cat gitversion-ext.json
     - FullSemVer=$(./yq r gitversion-ext.json FullSemVer)
     - sed "s/^\(\s*version\s*:\s*\).*/\1 $FullSemVer/" scrapinghub.yml > scrapinghub-new.yml
     - mv scrapinghub-new.yml scrapinghub.yml
   artifacts:
-    paths: 
+    paths:
       - scrapinghub.yml
   only:
     - master
@@ -25,6 +26,7 @@ gitversion:
 scrapinghub:
   stage: deploy
   script:
+    - pip install -r requirements.txt
     - scripts/shub-dependencies.sh
     - scripts/deploy.sh
   only:
