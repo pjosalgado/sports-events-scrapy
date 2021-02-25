@@ -1,4 +1,4 @@
-image: python:3.9-slim
+image: python:3.9
 
 stages:
   - build
@@ -11,7 +11,15 @@ include:
 gitversion:
   stage: build
   script:
-    - scripts/gitversion-dependencies.sh
+    - apt-get update
+    - apt-get install wget -y
+    - wget https://github.com/mikefarah/yq/releases/download/3.3.2/yq_linux_amd64
+    - mv yq_linux_amd64 yq
+    - chmod +x yq
+    - wget https://github.com/GitTools/GitVersion/releases/download/5.3.7/gitversion-ubuntu.18.04-x64-5.3.7.tar.gz
+    - tar -zxvf gitversion-ubuntu.18.04-x64-5.3.7.tar.gz
+    - rm gitversion-ubuntu.18.04-x64-5.3.7.tar.gz
+    - chmod +x gitversion
     - "./gitversion path $(pwd) > gitversion-ext.json"
     - cat gitversion-ext.json
     - FullSemVer=$(./yq r gitversion-ext.json FullSemVer)
@@ -23,12 +31,17 @@ gitversion:
   only:
     - master
 
+sast:
+  stage: test
+
 scrapinghub:
   stage: deploy
   script:
+    - apt update
+    - apt install rpl -y
     - pip install -r requirements.txt
-    - scripts/shub-dependencies.sh
-    - scripts/deploy.sh
+    - rpl '$SHUB_API_KEY' $SHUB_API_KEY scrapinghub.yml
+    - shub deploy
   only:
     - master
   environment:
