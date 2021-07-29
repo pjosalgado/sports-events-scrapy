@@ -9,43 +9,37 @@ class SportsBaySpider(scrapy.Spider):
     name = 'sportsbay'
     
     start_urls = [
-        # Baseball
-        'https://sportsbay.org/competition/mlb-baseball', 
-        
-        # Basketball
-        'https://sportsbay.org/competition/euroleague-basketball', 
-        'https://sportsbay.org/competition/nba-basketball', 
-        
-        # Football
-        'https://sportsbay.org/competition/brazilian-serie-a', 
-        'https://sportsbay.org/competition/concacaf-champions-league', 
-        'https://sportsbay.org/competition/copa-libertadores', 
-        'https://sportsbay.org/competition/english-league-cup', 
-        'https://sportsbay.org/competition/english-premier-league', 
-        'https://sportsbay.org/competition/french-ligue-1', 
-        'https://sportsbay.org/competition/german-bundesliga', 
-        'https://sportsbay.org/competition/italian-serie-a', 
-        'https://sportsbay.org/competition/mls-soccer', 
-        'https://sportsbay.org/competition/portuguese-primeira-liga', 
-        'https://sportsbay.org/competition/spanish-la-liga', 
-        'https://sportsbay.org/competition/uefa-champions-league', 
-        'https://sportsbay.org/competition/uefa-champions-league-qualifying', 
-        'https://sportsbay.org/competition/uefa-europa-league', 
-        'https://sportsbay.org/competition/uefa-europa-league-qualifying', 
-        'https://sportsbay.org/competition/uefa-nations-league', 
-        
-        # Hockey
-        'https://sportsbay.org/competition/nhl-hockey', 
-        
-        # Motorsports
-        'https://sportsbay.org/competition/formula-1', 
-        
-        # NFL
+        'https://sportsbay.org/competition/mlb-baseball',
+        'https://sportsbay.org/competition/euroleague-basketball',
+        'https://sportsbay.org/competition/nba-basketball',
+        'https://sportsbay.org/competition/concacaf-champions-league',
+        'https://sportsbay.org/competition/copa-libertadores',
+        'https://sportsbay.org/competition/english-league-cup',
+        'https://sportsbay.org/competition/english-premier-league',
+        'https://sportsbay.org/competition/french-ligue-1',
+        'https://sportsbay.org/competition/german-bundesliga',
+        'https://sportsbay.org/competition/italian-serie-a',
+        'https://sportsbay.org/competition/mls-soccer',
+        'https://sportsbay.org/competition/portuguese-primeira-liga',
+        'https://sportsbay.org/competition/spanish-la-liga',
+        'https://sportsbay.org/competition/uefa-champions-league',
+        'https://sportsbay.org/competition/uefa-champions-league-qualifying',
+        'https://sportsbay.org/competition/uefa-europa-league',
+        'https://sportsbay.org/competition/uefa-europa-league-qualifying',
+        'https://sportsbay.org/competition/uefa-nations-league',
+        'https://sportsbay.org/competition/nhl-hockey',
+        'https://sportsbay.org/competition/formula-1',
         'https://sportsbay.org/competition/nfl-football',
-        
-        # Tennis
-        'https://sportsbay.org/competition/australian-open', 
-        'https://sportsbay.org/competition/us-open', 
+        'https://sportsbay.org/competition/australian-open',
+        'https://sportsbay.org/competition/us-open',
+        'https://sportsbay.org/competition/uefa-europa-conference-league-qualifying',
+        'https://sportsbay.org/competition/tokyo-2020-olympic-games',
+        'https://sportsbay.org/competition/women-s-olympic-tournament',
+        'https://sportsbay.org/competition/men-s-olympic-tournament',
+        'https://sportsbay.org/competition/olympics-men-s-singles',
+        'https://sportsbay.org/competition/olympics-women-s-singles',
+        'https://sportsbay.org/competition/olympics-men-s-doubles',
+        'https://sportsbay.org/competition/olympics-women-s-doubles',
     ]
     
     TIMEZONE = pytz.timezone('Etc/GMT+3')
