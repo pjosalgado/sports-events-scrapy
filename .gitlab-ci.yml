@@ -23,8 +23,7 @@ gitversion:
     - "./gitversion path $(pwd) > gitversion-ext.json"
     - cat gitversion-ext.json
     - FullSemVer=$(./yq r gitversion-ext.json FullSemVer)
-    - sed "s/^\(\s*version\s*:\s*\).*/\1 $FullSemVer/" scrapinghub.yml > scrapinghub-new.yml
-    - mv scrapinghub-new.yml scrapinghub.yml
+    - sed -i "s/^\(\s*version\s*:\s*\).*/\1 $FullSemVer/" scrapinghub.yml
   artifacts:
     paths:
       - scrapinghub.yml
@@ -37,10 +36,8 @@ sast:
 scrapinghub:
   stage: deploy
   script:
-    - apt update
-    - apt install rpl -y
     - pip install -r requirements.txt
-    - rpl '$SHUB_API_KEY' $SHUB_API_KEY scrapinghub.yml
+    - sed -i "s/\$SHUB_API_KEY/$SHUB_API_KEY/g" scrapinghub.yml
     - shub deploy
   only:
     - master
