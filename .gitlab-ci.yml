@@ -13,16 +13,16 @@ gitversion:
   script:
     - apt-get update
     - apt-get install wget -y
-    - wget https://github.com/mikefarah/yq/releases/download/3.3.2/yq_linux_amd64
+    - wget https://github.com/mikefarah/yq/releases/download/v4.40.5/yq_linux_amd64
     - mv yq_linux_amd64 yq
     - chmod +x yq
-    - wget https://github.com/GitTools/GitVersion/releases/download/5.3.7/gitversion-ubuntu.18.04-x64-5.3.7.tar.gz
-    - tar -zxvf gitversion-ubuntu.18.04-x64-5.3.7.tar.gz
-    - rm gitversion-ubuntu.18.04-x64-5.3.7.tar.gz
+    - wget https://github.com/GitTools/GitVersion/releases/download/5.12.0/gitversion-linux-x64-5.12.0.tar.gz
+    - tar -zxvf gitversion-linux-x64-5.12.0.tar.gz
+    - rm gitversion-linux-x64-5.12.0.tar.gz
     - chmod +x gitversion
     - "./gitversion path $(pwd) > gitversion-ext.json"
     - cat gitversion-ext.json
-    - FullSemVer=$(./yq r gitversion-ext.json FullSemVer)
+    - FullSemVer=$(./yq '.FullSemVer' gitversion-ext.json)
     - sed -i "s/^\(\s*version\s*:\s*\).*/\1 $FullSemVer/" scrapinghub.yml
   artifacts:
     paths:
